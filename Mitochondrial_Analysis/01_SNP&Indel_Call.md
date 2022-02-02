@@ -48,7 +48,7 @@ module load GATK/4.1.4.0-GCCcore-8.3.0-Java-1.8
 
 gatk --java-options "-Xmx8g" HaplotypeCaller \
 -VS STRICT \
--R /cluster/work/users/oliverke/Thule/Paleomix/Reference/Assembly_Puffin_NU.MT.fasta \
+-R Assembly_Puffin_NU.MT.fasta \
 -I ${1}.Assembly_Puffin_MT.sorted.bam \
 -ploidy 1 \
 -ERC GVCF \
@@ -79,18 +79,18 @@ mtDNA_SNPs_pt2.sh
 module load GATK/4.1.4.0-GCCcore-8.3.0-Java-1.8
 
 gatk --java-options "-Xmx25g" CombineGVCFs \
--R /cluster/work/users/oliverke/Thule/Paleomix/Reference/Assembly_Puffin_NU.MT.fasta \
+-R Assembly_Puffin_NU.MT.fasta \
 -L scaffold1766 \
 -V gvcf.list \
 -O cohort.mtDNA.g.vcf.gz \
---tmp-dir=/cluster/work/users/oliverke/Thule/MitoAnalysis/GATK_Data/tmp 2> Puffin_MT_Combining_Log.out
+--tmp-dir=tmp 2> Puffin_MT_Combining_Log.out
 
 gatk --java-options "-Xmx25g" GenotypeGVCFs \
--R /cluster/work/users/oliverke/Thule/Paleomix/Reference/Assembly_Puffin_NU.MT.fasta \
+-R Assembly_Puffin_NU.MT.fasta \
 -L scaffold1766 \
 -V cohort.mtDNA.g.vcf.gz \
 -O Puffin_MT_SnpsAndIndels.raw.vcf.gz \
---tmp-dir=/cluster/work/users/oliverke/Thule/MitoAnalysis/GATK_Data/tmp 2> Puffin_MT_Genotyping_Log.out
+--tmp-dir=tmp 2> Puffin_MT_Genotyping_Log.out
 
 mv Puffin_MT_*_Log.out ../GATK_Log/
 
